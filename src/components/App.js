@@ -1,39 +1,46 @@
-// import React from 'react';
+import React from 'react';
 import './../index.css';
 import Footer from './Footer';
 import Header from './Header';
 import ImagePopup from './ImagePopup';
 import Main from './Main';
 import PopupWithForm from './PopupWithForm';
+import renderAll from '../index.js';
+
+//переменные состояния, отвечающие за видимость трёх попапов
+let isEditProfilePopupOpen = false;
+let isAddPlacePopupOpen = false;
+let isEditAvatarPopupOpen = false;
+
+function handleEditProfileClick() {
+  isEditProfilePopupOpen = true;
+  renderAll();
+  // const popupProfile = document.querySelector('.popup_place_edit-button');
+  // popupProfile.classList.add('popup_opened');
+}
+
+function handleAddPlaceClick() {
+  isAddPlacePopupOpen = true;
+  renderAll();
+  // const popupCard = document.querySelector('.popup_place_add-button');
+  // popupCard.classList.add('popup_opened');
+}
+
+function handleEditAvatarClick() {
+  isEditAvatarPopupOpen = true;
+  renderAll();
+  // const popupAvatar = document.querySelector('.popup_place_avatar');
+  // popupAvatar.classList.add('popup_opened');
+}
+
+function closeAllPopups() {
+  isEditProfilePopupOpen = false;
+  isAddPlacePopupOpen = false;
+  isEditAvatarPopupOpen = false;
+  renderAll();
+}
 
 function App() {
-  //переменные состояния, отвечающие за видимость трёх попапов
-  let isEditProfilePopupOpen = false;
-  let isAddPlacePopupOpen = false;
-  let isEditAvatarPopupOpen = false;
-
-  function handleEditProfileClick() {
-    console.log('редактировать профиль');
-    isEditProfilePopupOpen = true;
-    // const popupProfile = document.querySelector('.popup_place_edit-button');
-    // popupProfile.classList.add('popup_opened');
-  }
-
-  function handleAddPlaceClick() {
-    console.log('добавить место');
-    isAddPlacePopupOpen = true;
-    // const popupCard = document.querySelector('.popup_place_add-button');
-    // popupCard.classList.add('popup_opened');
-  }
-
-  function handleEditAvatarClick() {
-    console.log('аватар');
-    isEditAvatarPopupOpen = true;
-    // const popupAvatar = document.querySelector('.popup_place_avatar');
-    // popupAvatar.classList.add('popup_opened');
-  }
-console.log(isEditProfilePopupOpen);
-
   return (
     <div className="root">
       <div className="page">
@@ -42,6 +49,7 @@ console.log(isEditProfilePopupOpen);
         <Footer />
         <ImagePopup />
         <PopupWithForm
+          onClose={closeAllPopups}
           isOpen={isEditProfilePopupOpen}
           name="edit-button"
           title="Редактировать профиль"
@@ -58,6 +66,7 @@ console.log(isEditProfilePopupOpen);
           }
         />
         <PopupWithForm
+          onClose={closeAllPopups}
           isOpen={isAddPlacePopupOpen}
           name="add-button"
           title="Новое место"
@@ -74,6 +83,7 @@ console.log(isEditProfilePopupOpen);
           }
         />
         <PopupWithForm
+          onClose={closeAllPopups}
           isOpen={isEditAvatarPopupOpen}
           name="avatar"
           title="Обновить аватар"
