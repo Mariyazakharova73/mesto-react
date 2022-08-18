@@ -2,17 +2,47 @@
 import './../index.css';
 import Footer from './Footer';
 import Header from './Header';
+import ImagePopup from './ImagePopup';
 import Main from './Main';
 import PopupWithForm from './PopupWithForm';
 
 function App() {
+  //переменные состояния, отвечающие за видимость трёх попапов
+  let isEditProfilePopupOpen = false;
+  let isAddPlacePopupOpen = false;
+  let isEditAvatarPopupOpen = false;
+
+  function handleEditProfileClick() {
+    console.log('редактировать профиль');
+    isEditProfilePopupOpen = true;
+    // const popupProfile = document.querySelector('.popup_place_edit-button');
+    // popupProfile.classList.add('popup_opened');
+  }
+
+  function handleAddPlaceClick() {
+    console.log('добавить место');
+    isAddPlacePopupOpen = true;
+    // const popupCard = document.querySelector('.popup_place_add-button');
+    // popupCard.classList.add('popup_opened');
+  }
+
+  function handleEditAvatarClick() {
+    console.log('аватар');
+    isEditAvatarPopupOpen = true;
+    // const popupAvatar = document.querySelector('.popup_place_avatar');
+    // popupAvatar.classList.add('popup_opened');
+  }
+console.log(isEditProfilePopupOpen);
+
   return (
     <div className="root">
       <div className="page">
         <Header />
-        <Main />
+        <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} />
         <Footer />
+        <ImagePopup />
         <PopupWithForm
+          isOpen={isEditProfilePopupOpen}
           name="edit-button"
           title="Редактировать профиль"
           children={
@@ -28,6 +58,7 @@ function App() {
           }
         />
         <PopupWithForm
+          isOpen={isAddPlacePopupOpen}
           name="add-button"
           title="Новое место"
           children={
@@ -43,6 +74,7 @@ function App() {
           }
         />
         <PopupWithForm
+          isOpen={isEditAvatarPopupOpen}
           name="avatar"
           title="Обновить аватар"
           children={
@@ -56,6 +88,7 @@ function App() {
           }
         />
         <PopupWithForm
+          isOpen=""
           name="delete-button"
           title="Вы уверены?"
           children={
