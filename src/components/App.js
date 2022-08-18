@@ -3,6 +3,7 @@ import './../index.css';
 import Footer from './Footer';
 import Header from './Header';
 import Main from './Main';
+import PopupWithForm from './PopupWithForm';
 
 function App() {
   return (
@@ -11,7 +12,61 @@ function App() {
         <Header />
         <Main />
         <Footer />
-        <div className="popup popup_place_edit-button">
+        <PopupWithForm
+          name="edit-button"
+          title="Редактировать профиль"
+          children={
+            <>
+              <input id="name-input" className="popup__form-input" type="text" name="name" placeholder="Имя" minlength="2" maxlength="40" required />
+              <span className="name-input-error popup__input-error"></span>
+              <input id="job-input" className="popup__form-input" type="text" name="about" placeholder="О себе" minlength="2" maxlength="200" required />
+              <span className="job-input-error popup__input-error"></span>
+              <button className="popup__form-button" type="submit">
+                Сохранить
+              </button>
+            </>
+          }
+        />
+        <PopupWithForm
+          name="add-button"
+          title="Новое место"
+          children={
+            <>
+              <input id="title-input" className="popup__form-input" type="text" name="name" placeholder="Название" minlength="2" maxlength="30" required />
+              <span className="title-input-error popup__input-error"></span>
+              <input id="link-input" className="popup__form-input" type="url" name="link" placeholder="Ссылка на картинку" required />
+              <span className="link-input-error popup__input-error"></span>
+              <button className="popup__form-button" type="submit">
+                Создать
+              </button>
+            </>
+          }
+        />
+        <PopupWithForm
+          name="avatar"
+          title="Обновить аватар"
+          children={
+            <>
+              <input id="link-input-avatar" className="popup__form-input" type="url" name="link" placeholder="Ссылка на картинку" required />
+              <span className="link-input-avatar-error popup__input-error"></span>
+              <button className="popup__form-button" type="submit">
+                Сохранить
+              </button>
+            </>
+          }
+        />
+        <PopupWithForm
+          name="delete-button"
+          title="Вы уверены?"
+          children={
+            <>
+              <button className="popup__form-button" type="submit">
+                Да
+              </button>
+            </>
+          }
+        />
+        {/* <div className="popup popup_place_edit-button">
           <div className="popup__content">
             <button className="popup__close" type="button"></button>
             <div className="popup__form-content">
@@ -81,7 +136,7 @@ function App() {
               </form>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
       <template id="card" className="card-template">
         <li className="gallery__card">
