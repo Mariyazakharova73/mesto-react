@@ -1,6 +1,10 @@
 import avatar from './../images/profile-avatar.jpg';
 
 function Main(props) {
+  const [userName, setuserName] = React.useState();
+  const [userDescription, setuserDescription] = React.useState();
+  const [userAvatar, setuserAvatar] = React.useState();
+
   return (
     <main className="content">
     <section className="profile">
