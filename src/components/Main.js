@@ -3,19 +3,23 @@ import { api } from '../utils/Api.js';
 import React from 'react';
 
 function Main(props) {
-  api
+  const [userName, setuserName] = React.useState('');
+  const [userDescription, setuserDescription] = React.useState('');
+  const [userAvatar, setuserAvatar] = React.useState();
+
+  React.useEffect(() => {
+    api
     .getProfile()
     .then((res) => {
-      console.log(res);
-      console.log(res.name);
+      setuserName(res.name)
+      setuserDescription(res.about)
+      setuserAvatar(res.avatar)
     })
     .catch((err) => {
       console.log(err);
     })
+  });
 
-  const [userName, setuserName] = React.useState('');
-  const [userDescription, setuserDescription] = React.useState('');
-  const [userAvatar, setuserAvatar] = React.useState();
 
   return (
     <main className="content">
