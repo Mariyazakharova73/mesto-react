@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom/client';
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 
-
+//DOM-элемент, в который необходимо вставить JSX
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 export default function renderAll() {
   root.render(
     <React.StrictMode>
