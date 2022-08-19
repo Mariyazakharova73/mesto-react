@@ -126,19 +126,6 @@ function App(props) {
           }
         />
       </div>
-      <template id="card" className="card-template">
-        <li className="gallery__card">
-          <button className="gallery__button-delete gallery__button-delete_hidden" type="button"></button>
-          <img className="gallery__card-image" />
-          <div className="gallery__card-description">
-            <h2 className="gallery__card-heading"></h2>
-            <div className="button-like__container">
-              <button className="button-like" type="submit"></button>
-              <p className="button-like__number"></p>
-            </div>
-          </div>
-        </li>
-      </template>
     </div>
   );
 }

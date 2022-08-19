@@ -1,25 +1,35 @@
 import avatar from './../images/profile-avatar.jpg';
 import { api } from '../utils/Api.js';
 import React from 'react';
+import Card from './Card';
 
 function Main(props) {
   const [userName, setuserName] = React.useState('');
   const [userDescription, setuserDescription] = React.useState('');
   const [userAvatar, setuserAvatar] = React.useState();
+  const [cards, setcards] = React.useState([]);
 
   React.useEffect(() => {
     api
-    .getProfile()
-    .then((res) => {
-      setuserName(res.name)
-      setuserDescription(res.about)
-      setuserAvatar(res.avatar)
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  });
+      .getProfile()
+      .then((res) => {
+        setuserName(res.name);
+        setuserDescription(res.about);
+        setuserAvatar(res.avatar);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
+    api
+      .getInitialCards()
+      .then((res) => {
+        setcards(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 
   return (
     <main className="content">
@@ -37,7 +47,14 @@ function Main(props) {
         <button className="profile__add-buttton" type="button" onClick={props.onAddPlace}></button>
       </section>
       <section className="gallery" aria-label="Галерея">
-        <ul className="gallery__cards"></ul>
+        <ul className="gallery__cards">
+          {cards.map((card, i) => (
+            // Важный атрибут: key
+            <div key={i}>
+              <Card card={card} />
+            </div>
+          ))}
+        </ul>
       </section>
     </main>
   );
