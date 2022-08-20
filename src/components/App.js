@@ -7,7 +7,6 @@ import Main from './Main';
 import PopupWithForm from './PopupWithForm';
 
 function App() {
-  console.log("render app");
   const [isEditProfilePopupOpen, setisEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setisAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen] = React.useState(false);
