@@ -8,8 +8,9 @@ function Main(props) {
   const [userDescription, setuserDescription] = React.useState('');
   const [userAvatar, setuserAvatar] = React.useState('');
   const [cards, setcards] = React.useState([]);
-
+  
   React.useEffect(() => {
+    console.log("useEffect");
     api
       .getProfile()
       .then((res) => {
@@ -29,7 +30,7 @@ function Main(props) {
       .catch((err) => {
         console.log(err);
       });
-  });
+  }, []);
 
   return (
     <main className="content">
@@ -51,7 +52,7 @@ function Main(props) {
           {cards.map((item, i) => (
             // Важный атрибут: key
             <div key={i}>
-              <Card cardItem={item} onCardClick={props.onCard}/>
+              <Card cardItem={item} onCardClick={props.onCard} />
             </div>
           ))}
         </ul>

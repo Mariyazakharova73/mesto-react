@@ -6,15 +6,11 @@ import reportWebVitals from './reportWebVitals';
 //DOM-элемент, в который необходимо вставить JSX
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-export default function renderAll() {
   root.render(
     <React.StrictMode>
       <App />
     </React.StrictMode>
   );
-}
-
-renderAll(); 
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

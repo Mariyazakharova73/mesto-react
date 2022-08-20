@@ -5,43 +5,16 @@ import Header from './Header';
 import ImagePopup from './ImagePopup';
 import Main from './Main';
 import PopupWithForm from './PopupWithForm';
-// import renderAll from '../index.js';
-
-//переменные состояния, отвечающие за видимость трёх попапов
-// let isEditProfilePopupOpen = false;
-// let isAddPlacePopupOpen = false;
-// let isEditAvatarPopupOpen = false;
-
-// function handleEditProfileClick() {
-//   isEditProfilePopupOpen = true;
-//   renderAll();
-// }
-
-// function handleAddPlaceClick() {
-//   isAddPlacePopupOpen = true;
-//   renderAll();
-// }
-
-// function handleEditAvatarClick() {
-//   isEditAvatarPopupOpen = true;
-//   renderAll();
-// }
-
-// function closeAllPopups() {
-//   isEditProfilePopupOpen = false;
-//   isAddPlacePopupOpen = false;
-//   isEditAvatarPopupOpen = false;
-//   renderAll();
-// }
 
 function App() {
+  console.log("render app");
   const [isEditProfilePopupOpen, setisEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setisAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen] = React.useState(false);
   const [selectedCard, setselectedCard] = React.useState({});
 
-  function handleCardClick(x) {
-    setselectedCard(x);
+  function handleCardClick(cardData) {
+    setselectedCard(cardData);
   }
 
   function handleEditProfileClick() {
@@ -53,7 +26,7 @@ function App() {
   }
 
   function handleEditAvatarClick() {
-    setisEditAvatarPopupOpen();
+    setisEditAvatarPopupOpen(true);
   }
 
   function closeAllPopups() {
@@ -77,9 +50,9 @@ function App() {
           title="Редактировать профиль"
           children={
             <>
-              <input id="name-input" className="popup__form-input" type="text" name="name" placeholder="Имя" minlength="2" maxlength="40" required />
+              <input id="name-input" className="popup__form-input" type="text" name="name" placeholder="Имя" minLength="2" maxLength="40" required />
               <span className="name-input-error popup__input-error"></span>
-              <input id="job-input" className="popup__form-input" type="text" name="about" placeholder="О себе" minlength="2" maxlength="200" required />
+              <input id="job-input" className="popup__form-input" type="text" name="about" placeholder="О себе" minLength="2" maxLength="200" required />
               <span className="job-input-error popup__input-error"></span>
               <button className="popup__form-button" type="submit">
                 Сохранить
@@ -94,7 +67,7 @@ function App() {
           title="Новое место"
           children={
             <>
-              <input id="title-input" className="popup__form-input" type="text" name="name" placeholder="Название" minlength="2" maxlength="30" required />
+              <input id="title-input" className="popup__form-input" type="text" name="name" placeholder="Название" minLength="2" maxLength="30" required />
               <span className="title-input-error popup__input-error"></span>
               <input id="link-input" className="popup__form-input" type="url" name="link" placeholder="Ссылка на картинку" required />
               <span className="link-input-error popup__input-error"></span>
