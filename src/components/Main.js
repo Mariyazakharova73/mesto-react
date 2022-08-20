@@ -6,7 +6,7 @@ import Card from './Card';
 function Main(props) {
   const [userName, setuserName] = React.useState('');
   const [userDescription, setuserDescription] = React.useState('');
-  const [userAvatar, setuserAvatar] = React.useState();
+  const [userAvatar, setuserAvatar] = React.useState('');
   const [cards, setcards] = React.useState([]);
 
   React.useEffect(() => {
@@ -48,10 +48,10 @@ function Main(props) {
       </section>
       <section className="gallery" aria-label="Галерея">
         <ul className="gallery__cards">
-          {cards.map((card, i) => (
+          {cards.map((item, i) => (
             // Важный атрибут: key
             <div key={i}>
-              <Card card={card} />
+              <Card cardItem={item} onCardClick={props.onCard}/>
             </div>
           ))}
         </ul>

@@ -34,10 +34,15 @@ import PopupWithForm from './PopupWithForm';
 //   renderAll();
 // }
 
-function App(props) {
+function App() {
   const [isEditProfilePopupOpen, setisEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setisAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen] = React.useState(false);
+  const [selectedCard, setselectedCard] = React.useState({});
+
+  function handleCardClick(x) {
+    setselectedCard(x);
+  }
 
   function handleEditProfileClick() {
     setisEditProfilePopupOpen(true);
@@ -48,22 +53,23 @@ function App(props) {
   }
 
   function handleEditAvatarClick() {
-    setisEditAvatarPopupOpen(true);
+    setisEditAvatarPopupOpen();
   }
 
   function closeAllPopups() {
     setisEditProfilePopupOpen(false);
     setisAddPlacePopupOpen(false);
     setisEditAvatarPopupOpen(false);
+    setselectedCard({});
   }
 
   return (
     <div className="root">
       <div className="page">
         <Header />
-        <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} />
+        <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCard={handleCardClick} />
         <Footer />
-        <ImagePopup />
+        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
         <PopupWithForm
           onClose={closeAllPopups}
           isOpen={isEditProfilePopupOpen}
