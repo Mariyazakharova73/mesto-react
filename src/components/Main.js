@@ -50,7 +50,6 @@ function Main(props) {
       <section className="gallery" aria-label="Галерея">
         <ul className="gallery__cards">
           {cards.map((item, i) => (
-            // Важный атрибут: key
             <div key={i}>
               <Card cardItem={item} onCardClick={props.onCard} />
             </div>
