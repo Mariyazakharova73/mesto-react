@@ -8,9 +8,8 @@ function Main(props) {
   const [userDescription, setuserDescription] = React.useState('');
   const [userAvatar, setuserAvatar] = React.useState('');
   const [cards, setcards] = React.useState([]);
-  
+
   React.useEffect(() => {
-    console.log("useEffect");
     api
       .getProfile()
       .then((res) => {
