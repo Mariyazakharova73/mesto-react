@@ -3,7 +3,7 @@ import { api } from '../utils/Api.js';
 import React from 'react';
 import Card from './Card';
 
-function Main({onEditAvatar, onEditProfile, onAddPlace, onCard}) {
+function Main({ onEditAvatar, onEditProfile, onAddPlace, onCard }) {
   const [userName, setUserName] = React.useState('');
   const [userDescription, setUserDescription] = React.useState('');
   const [userAvatar, setUserAvatar] = React.useState('');
@@ -40,11 +40,11 @@ function Main({onEditAvatar, onEditProfile, onAddPlace, onCard}) {
         <div className="profile__info">
           <div className="profile__info-wrapper">
             <h1 className="profile__info-name">{userName || 'Мария Захарова'}</h1>
-            <button className="profile__edit-button" type="button" onClick={onEditProfile}/>
+            <button className="profile__edit-button" type="button" onClick={onEditProfile} />
           </div>
           <p className="profile__info-job">{userDescription || 'Студент'}</p>
         </div>
-        <button className="profile__add-buttton" type="button" onClick={onAddPlace}/>
+        <button className="profile__add-buttton" type="button" onClick={onAddPlace} />
       </section>
       <section className="gallery" aria-label="Галерея">
         <ul className="gallery__cards">
