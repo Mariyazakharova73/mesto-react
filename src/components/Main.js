@@ -2,14 +2,17 @@ import avatar from './../images/profile-avatar.jpg';
 import { api } from '../utils/Api.js';
 import React from 'react';
 import Card from './Card';
+import Spinner from './Spinner';
 
 function Main({ onEditAvatar, onEditProfile, onAddPlace, onCard }) {
   const [userName, setUserName] = React.useState('');
   const [userDescription, setUserDescription] = React.useState('');
   const [userAvatar, setUserAvatar] = React.useState('');
   const [cards, setCards] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
+    setLoading(true);
     api
       .getProfile()
       .then((res) => {
@@ -19,6 +22,9 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCard }) {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
 
     api
@@ -28,31 +34,40 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCard }) {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
   return (
     <main className="content">
-      <section className="profile">
-        <div className="profile__avatar-wrapper" onClick={onEditAvatar}>
-          <img className="profile__avatar" src={userAvatar || avatar} alt="Аватар" />
-        </div>
-        <div className="profile__info">
-          <div className="profile__info-wrapper">
-            <h1 className="profile__info-name">{userName || 'Мария Захарова'}</h1>
-            <button className="profile__edit-button" type="button" onClick={onEditProfile} />
-          </div>
-          <p className="profile__info-job">{userDescription || 'Студент'}</p>
-        </div>
-        <button className="profile__add-buttton" type="button" onClick={onAddPlace} />
-      </section>
-      <section className="gallery" aria-label="Галерея">
-        <ul className="gallery__cards">
-          {cards.map((item) => (
-            <Card key={item._id} cardItem={item} onCardClick={onCard} />
-          ))}
-        </ul>
-      </section>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <>
+          <section className="profile">
+            <div className="profile__avatar-wrapper" onClick={onEditAvatar}>
+              <img className="profile__avatar" src={userAvatar || avatar} alt="Аватар" />
+            </div>
+            <div className="profile__info">
+              <div className="profile__info-wrapper">
+                <h1 className="profile__info-name">{userName || 'Мария Захарова'}</h1>
+                <button className="profile__edit-button" type="button" onClick={onEditProfile} />
+              </div>
+              <p className="profile__info-job">{userDescription || 'Студент'}</p>
+            </div>
+            <button className="profile__add-buttton" type="button" onClick={onAddPlace} />
+          </section>
+          <section className="gallery" aria-label="Галерея">
+            <ul className="gallery__cards">
+              {cards.map((item) => (
+                <Card key={item._id} cardItem={item} onCardClick={onCard} />
+              ))}
+            </ul>
+          </section>
+        </>
+      )}
     </main>
   );
 }
