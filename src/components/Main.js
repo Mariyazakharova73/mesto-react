@@ -9,7 +9,8 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCard }) {
   const [userDescription, setUserDescription] = React.useState('');
   const [userAvatar, setUserAvatar] = React.useState('');
   const [cards, setCards] = React.useState([]);
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
+  // const [err, setError] = React.useState('');
 
   React.useEffect(() => {
     setLoading(true);
@@ -21,6 +22,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCard }) {
         setUserAvatar(res.avatar);
       })
       .catch((err) => {
+        // setError(err.message);
         console.log(err);
       })
       .finally(() => {
@@ -33,12 +35,17 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCard }) {
         setCards(res);
       })
       .catch((err) => {
+        // setError(err.message);
         console.log(err);
       })
       .finally(() => {
         setLoading(false);
       });
   }, []);
+
+  // if (err) {
+  //   return <h1>ERROR:{err}</h1>;
+  // }
 
   return (
     <main className="content">
