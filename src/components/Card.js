@@ -27,7 +27,6 @@ function Card({ onCardClick,  onCardLike, onCardDelete}) {
     onCardDelete(card);
   }
 
-
   return (
     <li className="gallery__card">
       <button className={cardDeleteButtonClassName} type="button" onClick={handleDeleteClick}/>

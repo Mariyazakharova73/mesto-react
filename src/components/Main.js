@@ -37,7 +37,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCard }) {
     api
       .getInitialCards()
       .then((res) => {
-        console.log(res);
+
         setCards(res);
       })
       .catch((err) => {
