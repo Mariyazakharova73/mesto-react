@@ -4,20 +4,21 @@ import React from 'react';
 import Card from './Card';
 import Spinner from './Spinner';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
+import { CardContext } from '../contexts/CardContext.js';
 
 function Main({ onEditAvatar, onEditProfile, onAddPlace, onCard }) {
   // Подписываемся на контекст
   const currentUser = React.useContext(CurrentUserContext);
-
+  const cards = React.useContext(CardContext);
   // const [userName, setUserName] = React.useState('');
   // const [userDescription, setUserDescription] = React.useState('');
   // const [userAvatar, setUserAvatar] = React.useState('');
-  const [cards, setCards] = React.useState([]);
+  // const [cards, setCards] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   // const [err, setError] = React.useState('');
 
-  React.useEffect(() => {
-    setLoading(true);
+  // React.useEffect(() => {
+  //   setLoading(true);
     // api
     //   .getProfile()
     //   .then((res) => {
@@ -33,19 +34,19 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCard }) {
     //     setLoading(false);
     //   });
 
-    api
-      .getInitialCards()
-      .then((res) => {
-        setCards(res);
-      })
-      .catch((err) => {
-        // setError(err.message);
-        console.log(err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+  //   api
+  //     .getInitialCards()
+  //     .then((res) => {
+  //       setCards(res);
+  //     })
+  //     .catch((err) => {
+  //       // setError(err.message);
+  //       console.log(err);
+  //     })
+  //     .finally(() => {
+  //       setLoading(false);
+  //     });
+  // }, []);
 
   // if (err) {
   //   return <h1>ERROR:{err}</h1>;
@@ -53,10 +54,10 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCard }) {
 
   return (
     <main className="content">
-      {loading ? (
+      {/* {loading ? (
         <Spinner />
       ) : (
-        <>
+        <> */}
           <section className="profile">
             <div className="profile__avatar-wrapper" onClick={onEditAvatar}>
               <img className="profile__avatar" src={currentUser.avatar || avatar} alt="Аватар" />
@@ -77,8 +78,8 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCard }) {
               ))}
             </ul>
           </section>
-        </>
-      )}
+        {/* </>
+      )} */}
     </main>
   );
 }
