@@ -1,45 +1,62 @@
 import React from 'react';
+import PopupWithForm from './PopupWithForm';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
-function EditProfilePopup({ isOpen, onClose }) {
+function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   const [description, setDescription] = React.useState('');
   const [name, setName] = React.useState('');
   const currentUser = React.useContext(CurrentUserContext);
 
-  
-// После загрузки текущего пользователя из API
-// его данные будут использованы в управляемых компонентах.
+  function handleSubmit(evt) {
+    // Запрещаем браузеру переходить по адресу формы
+    evt.preventDefault();
+    // Передаём значения управляемых компонентов во внешний обработчик
+    onUpdateUser({
+      name,
+      about: description,
+    });
+  }
+
+  // После загрузки текущего пользователя из API
+  // его данные будут использованы в управляемых компонентах.
   React.useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-  }, [currentUser]); 
+  }, [currentUser]);
 
-  function handleName(evt){
-    setName(evt.target.value)
+  function handleName(evt) {
+    setName(evt.target.value);
   }
 
-  function handleDescription(evt){
-    setDescription(evt.target.value)
+  function handleDescription(evt) {
+    setDescription(evt.target.value);
   }
 
   return (
-    <div className={`popup popup_place_edit-button ${isOpen ? 'popup_opened' : ''}`}>
-      <div className="popup__content">
-        <button className="popup__close" type="button" onClick={onClose} />
-        <div className="popup__form-content">
-          <h2 className="popup__form-heading">Редактировать профиль</h2>
-          <form className="popup__form" name="edit-button">
-            <input value={name} onChange={handleName} id="name-input" className="popup__form-input" type="text" name="name" placeholder="Имя" minLength="2" maxLength="40" required />
-            <span className="name-input-error popup__input-error"></span>
-            <input value={description} onChange={handleDescription} id="job-input" className="popup__form-input" type="text" name="about" placeholder="О себе" minLength="2" maxLength="200" required />
-            <span className="job-input-error popup__input-error"></span>
-            <button className="popup__form-button" type="submit">
-              Сохранить
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
+    <PopupWithForm onClose={onClose} isOpen={isOpen} name="edit-button" title="Редактировать профиль" buttonText="Сохранить">
+      <input value={name} onChange={handleName} id="name-input" className="popup__form-input" type="text" name="name" placeholder="Имя" minLength="2" maxLength="40" required />
+      <span className="name-input-error popup__input-error"></span>
+      <input value={description} onChange={handleDescription} id="job-input" className="popup__form-input" type="text" name="about" placeholder="О себе" minLength="2" maxLength="200" required />
+      <span className="job-input-error popup__input-error"></span>
+    </PopupWithForm>
+
+    // <div className={`popup popup_place_edit-button ${isOpen ? 'popup_opened' : ''}`}>
+    //   <div className="popup__content">
+    //     <button className="popup__close" type="button" onClick={onClose} />
+    //     <div className="popup__form-content">
+    //       <h2 className="popup__form-heading">Редактировать профиль</h2>
+    //       <form onSubmit={handleSubmit} className="popup__form" name="edit-button">
+    //         <input value={name} onChange={handleName} id="name-input" className="popup__form-input" type="text" name="name" placeholder="Имя" minLength="2" maxLength="40" required />
+    //         <span className="name-input-error popup__input-error"></span>
+    //         <input value={description} onChange={handleDescription} id="job-input" className="popup__form-input" type="text" name="about" placeholder="О себе" minLength="2" maxLength="200" required />
+    //         <span className="job-input-error popup__input-error"></span>
+    //         <button className="popup__form-button" type="submit">
+    //           Сохранить
+    //         </button>
+    //       </form>
+    //     </div>
+    //   </div>
+    // </div>
   );
 }
 

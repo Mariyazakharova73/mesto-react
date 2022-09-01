@@ -20,9 +20,16 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCard }) {
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
     // Отправляем запрос в API и получаем обновлённые данные карточки
-    api.addLike(card._id, !isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
-    });
+
+    if (isLiked) {
+      api.deleteLike(card._id).then((newCard) => {
+        setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+      });
+    } else {
+      api.addLike(card._id, !isLiked).then((newCard) => {
+        setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+      });
+    }
   }
 
   function handleCardDelete(card) {
@@ -37,7 +44,6 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCard }) {
     api
       .getInitialCards()
       .then((res) => {
-
         setCards(res);
       })
       .catch((err) => {

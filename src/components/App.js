@@ -71,6 +71,11 @@ function App() {
     setSelectedCard({});
   }
 
+  function handleUpdateUser() {
+    
+  }
+
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="root">
@@ -85,7 +90,7 @@ function App() {
             <input id="job-input" className="popup__form-input" type="text" name="about" placeholder="О себе" minLength="2" maxLength="200" required />
             <span className="job-input-error popup__input-error"></span>
           </PopupWithForm> */}
-          <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}/>
+          <EditProfilePopup onUpdateUser={handleUpdateUser} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}/>
           <PopupWithForm onClose={closeAllPopups} isOpen={isAddPlacePopupOpen} name="add-button" title="Новое место" buttonText="Создать">
             <input id="title-input" className="popup__form-input" type="text" name="name" placeholder="Название" minLength="2" maxLength="30" required />
             <span className="title-input-error popup__input-error"></span>
