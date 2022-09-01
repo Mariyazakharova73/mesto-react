@@ -48,6 +48,7 @@ function App() {
     //   });
   }, []);
 
+
   function handleCardClick(cardData) {
     setSelectedCard(cardData);
   }
