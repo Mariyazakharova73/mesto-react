@@ -3,31 +3,35 @@ import { api } from '../utils/Api.js';
 import React from 'react';
 import Card from './Card';
 import Spinner from './Spinner';
+import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
 function Main({ onEditAvatar, onEditProfile, onAddPlace, onCard }) {
-  const [userName, setUserName] = React.useState('');
-  const [userDescription, setUserDescription] = React.useState('');
-  const [userAvatar, setUserAvatar] = React.useState('');
+  // Подписываемся на контекст
+  const currentUser = React.useContext(CurrentUserContext);
+
+  // const [userName, setUserName] = React.useState('');
+  // const [userDescription, setUserDescription] = React.useState('');
+  // const [userAvatar, setUserAvatar] = React.useState('');
   const [cards, setCards] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   // const [err, setError] = React.useState('');
 
   React.useEffect(() => {
     setLoading(true);
-    api
-      .getProfile()
-      .then((res) => {
-        setUserName(res.name);
-        setUserDescription(res.about);
-        setUserAvatar(res.avatar);
-      })
-      .catch((err) => {
-        // setError(err.message);
-        console.log(err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    // api
+    //   .getProfile()
+    //   .then((res) => {
+    //     setUserName(res.name);
+    //     setUserDescription(res.about);
+    //     setUserAvatar(res.avatar);
+    //   })
+    //   .catch((err) => {
+    //     // setError(err.message);
+    //     console.log(err);
+    //   })
+    //   .finally(() => {
+    //     setLoading(false);
+    //   });
 
     api
       .getInitialCards()
@@ -55,14 +59,14 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCard }) {
         <>
           <section className="profile">
             <div className="profile__avatar-wrapper" onClick={onEditAvatar}>
-              <img className="profile__avatar" src={userAvatar || avatar} alt="Аватар" />
+              <img className="profile__avatar" src={currentUser.avatar || avatar} alt="Аватар" />
             </div>
             <div className="profile__info">
               <div className="profile__info-wrapper">
-                <h1 className="profile__info-name">{userName || 'Мария Захарова'}</h1>
+                <h1 className="profile__info-name">{currentUser.name || 'Мария Захарова'}</h1>
                 <button className="profile__edit-button" type="button" onClick={onEditProfile} />
               </div>
-              <p className="profile__info-job">{userDescription || 'Студент'}</p>
+              <p className="profile__info-job">{currentUser.about || 'Студент'}</p>
             </div>
             <button className="profile__add-buttton" type="button" onClick={onAddPlace} />
           </section>
