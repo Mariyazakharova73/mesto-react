@@ -1,3 +1,11 @@
+import avatar from './../images/profile-avatar.jpg';
+import { api } from '../utils/Api.js';
+import React from 'react';
+import Card from './Card';
+import Spinner from './Spinner';
+import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
+import { CardContext } from '../contexts/CardContext.js';
+
 function Main({ onEditAvatar, onEditProfile, onAddPlace, onCard }) {
   // Подписываемся на контекст
   const currentUser = React.useContext(CurrentUserContext);
