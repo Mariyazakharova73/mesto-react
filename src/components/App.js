@@ -154,11 +154,8 @@ function App() {
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
           <ButtonContext.Provider value={buttonText}>
             <EditProfilePopup onUpdateUser={handleUpdateUser} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
-
             <EditAvatarPopup onUpdateAvatar={handleUpdateAvatar} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
-
             <AddPlacePopup onAddPlace={handleUpdatePlase} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
-
             <PopupWithForm isOpen="" name="delete-button" title="Вы уверены?" buttonText="Да"></PopupWithForm>
           </ButtonContext.Provider>
         </div>

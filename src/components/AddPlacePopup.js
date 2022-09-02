@@ -19,8 +19,8 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
     evt.preventDefault();
     // Передаём значения управляемых компонентов во внешний обработчик
     onAddPlace(cardName, cardLink);
-    setCardName('')
-    setCardLink('')
+    setCardName('');
+    setCardLink('');
   }
 
   return (
