@@ -4,8 +4,8 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import { ButtonContext } from '../contexts/ButtonContext.js';
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
-  const [description, setDescription] = React.useState('');
   const [name, setName] = React.useState('');
+  const [description, setDescription] = React.useState('');
   const currentUser = React.useContext(CurrentUserContext);
   const buttonText = React.useContext(ButtonContext);
 
@@ -23,7 +23,6 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   }
 
   function handleSubmit(evt) {
-    // Запрещаем браузеру переходить по адресу формы
     evt.preventDefault();
     // Передаём значения управляемых компонентов во внешний обработчик
     onUpdateUser(name, description);

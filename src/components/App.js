@@ -6,6 +6,7 @@ import ImagePopup from './ImagePopup';
 import Main from './Main';
 import PopupWithForm from './PopupWithForm';
 import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
 import { api } from '../utils/Api.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import { ButtonContext } from '../contexts/ButtonContext.js';
@@ -73,6 +74,21 @@ function App() {
       });
   }
 
+  function handleUpdateAvatar(link){
+    setButtonText('Сохранение');
+    api
+      .sendAvatar(link)
+      .then((res) => {
+        setСurrentUser(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setButtonText('Сохранить');
+      });
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="root">
@@ -89,18 +105,15 @@ function App() {
           </PopupWithForm> */}
           <ButtonContext.Provider value={buttonText}>
             <EditProfilePopup onUpdateUser={handleUpdateUser} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
+            <EditAvatarPopup onUpdateAvatar={handleUpdateAvatar} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
+            <PopupWithForm onClose={closeAllPopups} isOpen={isAddPlacePopupOpen} name="add-button" title="Новое место" buttonText="Создать">
+              <input id="title-input" className="popup__form-input" type="text" name="name" placeholder="Название" minLength="2" maxLength="30" required />
+              <span className="title-input-error popup__input-error"></span>
+              <input id="link-input" className="popup__form-input" type="url" name="link" placeholder="Ссылка на картинку" required />
+              <span className="link-input-error popup__input-error"></span>
+            </PopupWithForm>
+            <PopupWithForm isOpen="" name="delete-button" title="Вы уверены?" buttonText="Да"></PopupWithForm>
           </ButtonContext.Provider>
-          <PopupWithForm onClose={closeAllPopups} isOpen={isAddPlacePopupOpen} name="add-button" title="Новое место" buttonText="Создать">
-            <input id="title-input" className="popup__form-input" type="text" name="name" placeholder="Название" minLength="2" maxLength="30" required />
-            <span className="title-input-error popup__input-error"></span>
-            <input id="link-input" className="popup__form-input" type="url" name="link" placeholder="Ссылка на картинку" required />
-            <span className="link-input-error popup__input-error"></span>
-          </PopupWithForm>
-          <PopupWithForm onClose={closeAllPopups} isOpen={isEditAvatarPopupOpen} name="avatar" title="Обновить аватар" buttonText="Сохранить">
-            <input id="link-input-avatar" className="popup__form-input" type="url" name="link" placeholder="Ссылка на картинку" required />
-            <span className="link-input-avatar-error popup__input-error"></span>
-          </PopupWithForm>
-          <PopupWithForm isOpen="" name="delete-button" title="Вы уверены?" buttonText="Да"></PopupWithForm>
         </div>
       </div>
     </CurrentUserContext.Provider>
