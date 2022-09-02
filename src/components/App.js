@@ -20,6 +20,7 @@ function App() {
   const [currentUser, setСurrentUser] = React.useState({});
   const [loading, setLoading] = React.useState(true);
   const [buttonText, setButtonText] = React.useState('Сохранить');
+  const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
     setLoading(true);
@@ -35,6 +36,43 @@ function App() {
         setLoading(false);
       });
   }, []);
+
+  React.useEffect(() => {
+    setLoading(true);
+    api
+      .getInitialCards()
+      .then((res) => {
+        setCards(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  function handleCardLike(card) {
+    // Снова проверяем, есть ли уже лайк на этой карточке
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    // Отправляем запрос в API и получаем обновлённые данные карточки
+    if (isLiked) {
+      api.deleteLike(card._id).then((newCard) => {
+        setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+      });
+    } else {
+      api.addLike(card._id, !isLiked).then((newCard) => {
+        setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+      });
+    }
+  }
+
+  function handleCardDelete(card) {
+    // Отправляем запрос в API и получаем обновлённые данные карточки
+    api.deleteCard(card._id).then((newCard) => {
+      setCards((state) => state.filter((c) => c !== card));
+    });
+  }
 
   function handleCardClick(cardData) {
     setSelectedCard(cardData);
@@ -74,7 +112,7 @@ function App() {
       });
   }
 
-  function handleUpdateAvatar(link){
+  function handleUpdateAvatar(link) {
     setButtonText('Сохранение');
     api
       .sendAvatar(link)
@@ -94,15 +132,9 @@ function App() {
       <div className="root">
         <div className="page">
           <Header />
-          {loading ? <Spinner /> : <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCard={handleCardClick} />}
+          {loading ? <Spinner /> : <Main cards={cards} onCardLike={handleCardLike} onCardDelete={handleCardDelete} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCard={handleCardClick} />}
           <Footer />
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-          {/* <PopupWithForm onClose={closeAllPopups} isOpen={isEditProfilePopupOpen} name="edit-button" title="Редактировать профиль" buttonText="Сохранить">
-            <input id="name-input" className="popup__form-input" type="text" name="name" placeholder="Имя" minLength="2" maxLength="40" required />
-            <span className="name-input-error popup__input-error"></span>
-            <input id="job-input" className="popup__form-input" type="text" name="about" placeholder="О себе" minLength="2" maxLength="200" required />
-            <span className="job-input-error popup__input-error"></span>
-          </PopupWithForm> */}
           <ButtonContext.Provider value={buttonText}>
             <EditProfilePopup onUpdateUser={handleUpdateUser} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
             <EditAvatarPopup onUpdateAvatar={handleUpdateAvatar} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
