@@ -1,9 +1,7 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
-import { ButtonContext } from '../contexts/ButtonContext.js';
 
-function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
-  const buttonText = React.useContext(ButtonContext);
+function AddPlacePopup({ isOpen, onClose, onAddPlace, loadingData }) {
   const [cardName, setCardName] = React.useState('');
   const [cardLink, setCardLink] = React.useState('');
 
@@ -24,7 +22,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
   }
 
   return (
-    <PopupWithForm onSubmit={handleSubmit} onClose={onClose} isOpen={isOpen} name="add-button" title="Новое место" buttonText={buttonText}>
+    <PopupWithForm onSubmit={handleSubmit} onClose={onClose} isOpen={isOpen} name="add-button" title="Новое место" buttonText={loadingData ? 'Создание...' : 'Создать'}>
       <input value={cardName} onChange={handleCardName} id="title-input" className="popup__form-input" type="text" name="name" placeholder="Название" minLength="2" maxLength="30" required />
       <span className="title-input-error popup__input-error"></span>
       <input value={cardLink} onChange={handleCardLink} id="link-input" className="popup__form-input" type="url" name="link" placeholder="Ссылка на картинку" required />

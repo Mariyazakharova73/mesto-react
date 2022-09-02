@@ -2,8 +2,7 @@ import React from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import { CardContext } from '../contexts/CardContext.js';
 
-function Card({ onCardClick,  onCardLike, onCardDelete}) {
-  
+function Card({ onCardClick, onCardLike, onCardDelete }) {
   const currentUser = React.useContext(CurrentUserContext);
   const card = React.useContext(CardContext);
 
@@ -15,7 +14,7 @@ function Card({ onCardClick,  onCardLike, onCardDelete}) {
 
   // Создаём переменную, которую после зададим в `className` для кнопки лайка
   const cardLikeButtonClassName = `button-like ${isLiked ? 'button-like_active' : ''}`;
-  
+
   function handleClick() {
     onCardClick(card);
   }
@@ -30,12 +29,12 @@ function Card({ onCardClick,  onCardLike, onCardDelete}) {
 
   return (
     <li className="gallery__card">
-      <button className={cardDeleteButtonClassName} type="button" onClick={handleDeleteClick}/>
+      <button className={cardDeleteButtonClassName} type="button" onClick={handleDeleteClick} />
       <img className="gallery__card-image" src={card.link} alt={`${card.name}.`} onClick={handleClick} />
       <div className="gallery__card-description">
         <h2 className="gallery__card-heading">{card.name}</h2>
         <div className="button-like__container">
-          <button className={cardLikeButtonClassName} type="button" onClick={handleLikeClick}/>
+          <button className={cardLikeButtonClassName} type="button" onClick={handleLikeClick} />
           <p className="button-like__number">{card.likes.length}</p>
         </div>
       </div>
