@@ -2,7 +2,7 @@ import React from 'react';
 import PopupWithForm from './PopupWithForm';
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, loadingData }) {
-  let newLink = React.useRef(); // записываем объект, возвращаемый хуком, в переменную
+  let newLink = React.useRef();
 
   function handleSubmit(evt) {
     evt.preventDefault();
