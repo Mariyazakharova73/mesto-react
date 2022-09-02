@@ -7,6 +7,7 @@ import Main from './Main';
 import PopupWithForm from './PopupWithForm';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
 import { api } from '../utils/Api.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import { ButtonContext } from '../contexts/ButtonContext.js';
@@ -127,6 +128,22 @@ function App() {
       });
   }
 
+  function handleUpdatePlase(name, link) {
+    setButtonText('Создание');
+    api
+      .sendNewCard(name, link)
+      .then((res) => {
+        setCards([res, ...cards]);
+        console.log([res, ...cards]);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setButtonText('Создать');
+      });
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="root">
@@ -137,13 +154,11 @@ function App() {
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
           <ButtonContext.Provider value={buttonText}>
             <EditProfilePopup onUpdateUser={handleUpdateUser} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
+
             <EditAvatarPopup onUpdateAvatar={handleUpdateAvatar} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
-            <PopupWithForm onClose={closeAllPopups} isOpen={isAddPlacePopupOpen} name="add-button" title="Новое место" buttonText="Создать">
-              <input id="title-input" className="popup__form-input" type="text" name="name" placeholder="Название" minLength="2" maxLength="30" required />
-              <span className="title-input-error popup__input-error"></span>
-              <input id="link-input" className="popup__form-input" type="url" name="link" placeholder="Ссылка на картинку" required />
-              <span className="link-input-error popup__input-error"></span>
-            </PopupWithForm>
+
+            <AddPlacePopup onAddPlace={handleUpdatePlase} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
+
             <PopupWithForm isOpen="" name="delete-button" title="Вы уверены?" buttonText="Да"></PopupWithForm>
           </ButtonContext.Provider>
         </div>

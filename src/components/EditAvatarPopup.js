@@ -4,11 +4,12 @@ import { ButtonContext } from '../contexts/ButtonContext.js';
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
   const buttonText = React.useContext(ButtonContext);
-  const newLink = React.useRef(); // записываем объект, возвращаемый хуком, в переменную
+  let newLink = React.useRef(); // записываем объект, возвращаемый хуком, в переменную
 
   function handleSubmit(evt) {
     evt.preventDefault();
     onUpdateAvatar(newLink.current.value);
+    newLink.current.value = '';
   }
 
   return (

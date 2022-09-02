@@ -26,6 +26,8 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
     evt.preventDefault();
     // Передаём значения управляемых компонентов во внешний обработчик
     onUpdateUser(name, description);
+    setDescription('');
+    setName('');
   }
 
   return (
