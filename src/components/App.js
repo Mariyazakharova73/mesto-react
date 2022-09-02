@@ -118,6 +118,7 @@ function App() {
       .sendProfile(name, about)
       .then((res) => {
         setСurrentUser(res);
+        closeAllPopups();
       })
       .catch((err) => {
         console.log(err);
@@ -133,6 +134,7 @@ function App() {
       .sendAvatar(link)
       .then((res) => {
         setСurrentUser(res);
+        closeAllPopups();
       })
       .catch((err) => {
         console.log(err);
@@ -148,6 +150,7 @@ function App() {
       .sendNewCard(name, link)
       .then((res) => {
         setCards([res, ...cards]);
+        closeAllPopups();
       })
       .catch((err) => {
         console.log(err);
