@@ -17,9 +17,12 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, loadingData }) {
     evt.preventDefault();
     // Передаём значения управляемых компонентов во внешний обработчик
     onAddPlace(cardName, cardLink);
+  }
+
+  React.useEffect(() => {
     setCardName('');
     setCardLink('');
-  }
+  }, [isOpen]);
 
   return (
     <PopupWithForm onSubmit={handleSubmit} onClose={onClose} isOpen={isOpen} name="add-button" title="Новое место" buttonText={loadingData ? 'Создание...' : 'Создать'}>

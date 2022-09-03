@@ -10,7 +10,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, loadingData }) {
   React.useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-  }, [currentUser]);
+  }, [currentUser, isOpen]);
 
   function handleName(evt) {
     setName(evt.target.value);
@@ -24,8 +24,6 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, loadingData }) {
     evt.preventDefault();
     // Передаём значения управляемых компонентов во внешний обработчик
     onUpdateUser(name, description);
-    setDescription('');
-    setName('');
   }
 
   return (
