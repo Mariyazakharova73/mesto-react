@@ -111,10 +111,26 @@ function App() {
     setSelectedCard({});
   }
 
-  function handleUpdateUser(name, about) {
+  // function handleUpdateUser(name, about) {
+  //   setLoadingData(true);
+  //   api
+  //     .sendProfile(name, about)
+  //     .then((res) => {
+  //       setСurrentUser(res);
+  //       closeAllPopups();
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     })
+  //     .finally(() => {
+  //       setLoadingData(false);
+  //     });
+  // }
+
+  function handleUpdateUser(x) {
     setLoadingData(true);
     api
-      .sendProfile(name, about)
+      .sendProfile(x)
       .then((res) => {
         setСurrentUser(res);
         closeAllPopups();
@@ -126,6 +142,8 @@ function App() {
         setLoadingData(false);
       });
   }
+
+
 
   function handleUpdateAvatar(link) {
     setLoadingData(true);
