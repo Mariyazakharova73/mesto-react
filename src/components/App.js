@@ -143,8 +143,6 @@ function App() {
       });
   }
 
-
-
   function handleUpdateAvatar(link) {
     setLoadingData(true);
     api
